@@ -2,9 +2,9 @@
 
 # Name: Where’s My Movie?
 Team Members:
-Sakshi: Full Stack
-Dylan: Full Stack
-Antonio: Full Stack
+Sakshi: Full Stack, 
+Dylan: Full Stack, 
+Antonio: Full Stack 
 
 # Application Features (How it meets each requirement)
 
