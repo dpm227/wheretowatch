@@ -19,8 +19,9 @@ Antonio: Full Stack
 
 1. Make sure docker is open
 2. In the w2w folder, run `docker compose up -d`
-3. set `DATABASE_URL="postgres://dev:dev@localhost:5432/w2w-db` in .env
-4. run db migrations `npx prisma migrate dev`
+3. run `touch .env` in the w2w folder to create the env
+4. set `DATABASE_URL="postgres://dev:dev@localhost:5432/w2w-db` in .env
+5. run db migrations `npx prisma migrate dev` on every pull from main
 
 ### connecting to the db to see tables
 
