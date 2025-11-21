@@ -8,7 +8,7 @@ services:
     environment:
       POSTGRES_USER: dev
       POSTGRES_PASSWORD: dev
-      POSTGRES_DB: movies
+      POSTGRES_DB: w2w-db
     volumes:
       - movies-data:/var/lib/postgresql/data
 

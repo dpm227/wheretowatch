@@ -15,6 +15,9 @@ datasource db {
 
 model Movie {
   id        Int    @id @default(autoincrement())
+  wmId      Int    @unique
+  imdbId    String?
+  tmdbId    Int?
   title     String
   year      Int?
   createdAt DateTime @default(now())
