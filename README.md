@@ -23,15 +23,15 @@ Antonio: Full Stack
 4. set to the .env variables in the block quote below
 5. run db migrations `npx prisma migrate dev` on every pull from main
 
-> DATABASE_URL="postgres://dev:dev@localhost:5432/w2w-db"
-> POSTGRES_HOST=localhost
-> POSTGRES_PORT=5432
-> POSTGRES_DBNAME=w2w-db
-> POSTGRES_USERNAME=dev
-> POSTGRES_PASSWORD=dev
-> POSTGRES_SSL=false
-
-
+```.env
+DATABASE_URL="postgres://dev:dev@localhost:5432/w2w-db"
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DBNAME=w2w-db
+POSTGRES_USERNAME=dev
+POSTGRES_PASSWORD=dev
+POSTGRES_SSL=false
+```
 
 ### downloading and updating the movies
 
