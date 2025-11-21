@@ -1,13 +1,11 @@
-import { query } from "../../db/postgres";
+import { query } from "@/app/db/postgres";
 
 export async function GET(request, { params }) {
   try {
     // this needs to match the exact folder name
     const { movieId } = await params;
-    let films = await query(`Select * from Movie where id =${movieId}`, [
-      filmid,
-    ]);
-    return new Response(JSON.stringify(films.rows), {
+    let movie = await query(`Select * from "Movie" where id =$1`, [movieId]);
+    return new Response(JSON.stringify(movie.rows), {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
