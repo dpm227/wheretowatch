@@ -9,6 +9,8 @@ Antonio: Full Stack
 
 ## Application Features (How it meets each requirement)
 
+
+
 ## Installation & Setup Instructions (How to install, run, and configure the application)
 
 ### next js setup
@@ -32,6 +34,10 @@ POSTGRES_USERNAME=dev
 POSTGRES_PASSWORD=dev
 POSTGRES_SSL=false
 ```
+### User Database stuff
+
+1. npm install next-auth
+2. install npm install next-auth bcrypt 
 
 ### downloading and updating the movies
 
