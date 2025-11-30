@@ -40,43 +40,55 @@ export default function MovieCard({ data }) {
     load();
   }, [data]);
   return (
-    <Card
-      sx={{
-        maxWidth: 345,
-        height: 650,
-        backgroundColor: "#404040",
-        color: "white",
-        borderRadius: 3,
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <CardActionArea
+    <div className="w-82 h-120">
+      <Card
         sx={{
           height: "100%",
+          width: "100%",
+          backgroundColor: "#404040",
+          color: "white",
+          borderRadius: 3,
           display: "flex",
           flexDirection: "column",
-          alignItems: "stretch",
         }}
       >
-        <CardMedia
-          component="img"
-          height="250"
-          image={
-            movie?.poster_path
-              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-              : "https://placehold.co/500x750?text=No+Image"
-          }
-          alt={data.title}
-        />
-        <CardContent sx={{ flexGrow: 1 }}>
-          <Typography gutterBottom variant="h5" component="div">
-            {data.title}
-          </Typography>
-          <Typography variant="body2">{movie?.popularity}</Typography>
-          <Typography variant="body2">{movie?.release_date}</Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+        <CardActionArea
+          sx={{
+            flexGrow: 1,
+          }}
+        >
+          <CardMedia
+            component="img"
+            image={
+              movie?.poster_path
+                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                : "https://images.unsplash.com/photo-1604147706283-d7119b5b822c?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGxhaW4lMjB3aGl0ZXxlbnwwfHwwfHx8MA%3D%3D"
+            }
+            alt={data.title}
+            className="h-95 object-cover"
+          />
+          <CardContent sx={{ flexGrow: 1 }}>
+            <Typography
+              gutterBottom
+              component="div"
+              sx={{
+                height: "24px",
+                overflow: "hidden",
+                display: "-webkit-box",
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: "vertical",
+                fontSize: "clamp(0.8rem, 1.5vw, 1.25rem)",
+              }}
+            >
+              {data.title}
+            </Typography>
+            <Typography variant="body2">{movie?.popularity || "0"}</Typography>
+            <Typography variant="body2">
+              {movie?.release_date || "Unknown"}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </div>
   );
 }

@@ -34,17 +34,17 @@ POSTGRES_USERNAME=dev
 POSTGRES_PASSWORD=dev
 POSTGRES_SSL=false
 ```
+
 ### User Database stuff
 
 1. npm install next-auth
-2. install npm install next-auth bcrypt 
+2. install npm install next-auth bcrypt
 
 ### downloading and updating the movies
 
 1. Download the csv with all the movies here: https://api.watchmode.com/datasets/title_id_map.csv
 2. Drag this csv file into src/data/
 3. Then, in the w2w folder, run `node src/scripts/importCsv.js`
-
 
 ### connecting to the db to see tables
 
