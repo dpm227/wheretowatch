@@ -5,7 +5,7 @@ export async function GET(request, { params }) {
     // this needs to match the exact folder name
     const { movieTitle } = await params;
     let movie = await query(
-      `Select * from "Movie" where title ilike $1 limit 100`,
+      `Select * from "Movie" where title ilike $1 limit 20`,
       [`%${movieTitle}%`]
     );
     return new Response(JSON.stringify(movie.rows), {

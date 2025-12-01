@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 /* 
     Original NavBar from this tutorial
@@ -10,6 +11,8 @@ import { useState } from "react";
 
 const Navbar = () => {
   const [isClick, setIsClick] = useState(false);
+  const { data: session } = useSession();
+  const isAdmin = Boolean(session?.user?.isAdmin);
 
   const toggleNavbar = () => {
     setIsClick(!isClick);
@@ -56,6 +59,14 @@ const Navbar = () => {
                 >
                   New
                 </Link>
+                {isAdmin && (
+                  <Link
+                    href="/users"
+                    className="text-white hover:bg-white hover:text-black rounded-lg p-2"
+                  >
+                    Users
+                  </Link>
+                )}
               </div>
             </div>
             <div className="md:hidden flex items-center">
@@ -108,23 +119,31 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              href="/"
+              href="/search"
               className="text-white block hover:bg-white hover:text-black p-2"
             >
               Search
             </Link>
             <Link
-              href="/"
+              href="/watchlist"
               className="text-white block hover:bg-white hover:text-black p-2"
             >
               WatchList
             </Link>
             <Link
-              href="/"
+              href="/new"
               className="text-white block hover:bg-white hover:text-black p-2"
             >
               New
             </Link>
+            {isAdmin && (
+              <Link
+                href="/users"
+                className="text-white block hover:bg-white hover:text-black p-2"
+              >
+                Users
+              </Link>
+            )}
           </div>
         )}
       </nav>

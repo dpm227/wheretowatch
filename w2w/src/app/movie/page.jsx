@@ -11,6 +11,8 @@ import { WatchmodeClient } from "@watchmode/api-client";
 import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import { useSession, signIn } from "next-auth/react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function MovieCard() {
   const [data, setData] = useState(null);
@@ -21,6 +23,10 @@ export default function MovieCard() {
     apiKey: "SzuxHRuzsNZvEVlauBHWENPpznNerHfWzwxBh45P",
   });
   const [sources, setSources] = useState([]);
+  const { status, data: session } = useSession();
+  const [isInWatchlist, setIsInWatchlist] = useState(false);
+  const [isUpdatingWatchlist, setIsUpdatingWatchlist] = useState(false);
+  const [checkingWatchlist, setCheckingWatchlist] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -71,6 +77,49 @@ export default function MovieCard() {
 
     load();
   }, [id]);
+
+  useEffect(() => {
+    const fetchWatchlistState = async () => {
+      if (!id || status !== "authenticated") {
+        setIsInWatchlist(false);
+        return;
+      }
+      setCheckingWatchlist(true);
+      try {
+        const res = await fetch(`/api/watchlist?movieId=${id}`);
+        if (res.ok) {
+          const json = await res.json();
+          setIsInWatchlist(Boolean(json.inWatchlist));
+        }
+      } finally {
+        setCheckingWatchlist(false);
+      }
+    };
+
+    fetchWatchlistState();
+  }, [id, status]);
+
+  const handleToggleWatchlist = async () => {
+    if (status !== "authenticated") {
+      signIn("auth0", { callbackUrl: `/movie?id=${id}` });
+      return;
+    }
+    setIsUpdatingWatchlist(true);
+    try {
+      const method = isInWatchlist ? "DELETE" : "POST";
+      const res = await fetch("/api/watchlist", {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ movieId: Number(id) }),
+      });
+      if (res.ok) {
+        setIsInWatchlist(!isInWatchlist);
+      }
+    } finally {
+      setIsUpdatingWatchlist(false);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -118,9 +167,27 @@ export default function MovieCard() {
               className="mt-4"
               variant="outlined"
               startIcon={<FormatListBulletedIcon />}
+              onClick={handleToggleWatchlist}
+              disabled={checkingWatchlist || isUpdatingWatchlist}
             >
-              Add To Watchlist
+              {status !== "authenticated"
+                ? "Sign in to save"
+                : checkingWatchlist
+                  ? "Checking..."
+                  : isUpdatingWatchlist
+                    ? isInWatchlist
+                      ? "Removing..."
+                      : "Adding..."
+                    : isInWatchlist
+                      ? "Remove from Watchlist"
+                      : "Add to Watchlist"}
             </Button>
+            {checkingWatchlist && (
+              <div className="mt-2 text-sm flex items-center gap-2 text-gray-300">
+                <CircularProgress size={14} color="inherit" />
+                Checking watchlist...
+              </div>
+            )}
             <h3 className="font-bold text-3xl mb-4 mt-4">Where to Watch:</h3>
             <div className="mt-4 flex gap-3 flex-wrap">
               {sources.length === 0 && <p>No streaming sources found.</p>}
