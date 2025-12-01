@@ -15,7 +15,7 @@ export default function Search() {
 
   useEffect(() => {
     async function load() {
-      const res1 = await fetch(`/api/movies/`);
+      const res1 = await fetch(`/api/movies/title/christmas`);
       const movieList = await res1.json();
       setData(movieList);
     }

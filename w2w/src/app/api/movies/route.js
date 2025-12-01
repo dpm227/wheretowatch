@@ -2,7 +2,9 @@ import { query } from "@/app/db/postgres";
 
 export async function GET(request) {
   try {
-    let films = await query(`Select * from "Movie" limit 100`);
+    let films = await query(
+      `select * from "Movie" WHERE year <= extract(year from CURRENT_DATE) order by year desc nulls last limit 100;`
+    );
     return new Response(JSON.stringify(films.rows), {
       headers: { "Content-Type": "application/json" },
     });
