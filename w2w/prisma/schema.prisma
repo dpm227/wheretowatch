@@ -29,11 +29,10 @@ model User {
   password String
   name     String?
   createdAt DateTime @default(now())
+  role      Role     @default(USER)
 }
 
-model Admin{
-  id       Int    @id@default(autoincrement())
-  username String @unique
-  password String
-  name     String?
+enum Role {
+  USER
+  ADMIN
 }

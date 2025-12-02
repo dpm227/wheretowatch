@@ -11,8 +11,8 @@ const handler = NextAuth({
             name: "credentials", 
             authorize: async (credentials) => {
                 const {username, password } = credentials;
-                const qs = await(query 
-                `SELECT * FROM "User" WHERE username = $1 LIMIT 1`, [username] );
+                const qs = await query(
+                `select * from "User" where username = $1 limit 1`, [username] );
                 const user = qs.rows[0];
                 if(!user){
                     return null;
@@ -25,6 +25,7 @@ const handler = NextAuth({
                     id: user.id,
                     username: user.username,
                     name: user.name,
+                    role: user.role,
                 }
             },
             
@@ -35,6 +36,7 @@ const handler = NextAuth({
             if(user){
                 token.id = user.id
                 token.username = user.username
+                token.role = user.role
             }
             return token
         },
@@ -42,7 +44,8 @@ const handler = NextAuth({
             if(token){
                 session.user = {
                     id: token.id,
-                    username: token.username
+                    username: token.username,
+                    role: token.role
                 }
             }
             return session
