@@ -33,12 +33,6 @@ const Navbar = () => {
             <div className="hidden md:block">
               <div className="ml-4 flex items-center space-x-4">
                 <Link
-                  href="/"
-                  className="text-white hover:bg-white hover:text-black rounded-lg p-2"
-                >
-                  Home
-                </Link>
-                <Link
                   href="/search"
                   className="text-white hover:bg-white hover:text-black rounded-lg p-2"
                 >
@@ -51,10 +45,10 @@ const Navbar = () => {
                   WatchList
                 </Link>
                 <Link
-                  href="/new"
+                  href="/adminwatchlist"
                   className="text-white hover:bg-white hover:text-black rounded-lg p-2"
                 >
-                  New
+                  Admin
                 </Link>
               </div>
             </div>
@@ -102,28 +96,22 @@ const Navbar = () => {
         {isClick && (
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <Link
-              href="/"
-              className="text-white block hover:bg-white hover:text-black p-2"
-            >
-              Home
-            </Link>
-            <Link
-              href="/"
+              href="/search"
               className="text-white block hover:bg-white hover:text-black p-2"
             >
               Search
             </Link>
             <Link
-              href="/"
+              href="/watchlist"
               className="text-white block hover:bg-white hover:text-black p-2"
             >
               WatchList
             </Link>
             <Link
-              href="/"
+              href="/adminwatchlist"
               className="text-white block hover:bg-white hover:text-black p-2"
             >
-              New
+              Admin
             </Link>
           </div>
         )}

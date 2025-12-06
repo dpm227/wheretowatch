@@ -14,25 +14,39 @@ datasource db {
 }
 
 model Movie {
-  id        Int    @id @default(autoincrement())
-  wmId      Int    @unique
+  id        Int         @id @default(autoincrement())
+  wmId      Int         @unique
   imdbId    String?
   tmdbId    Int?
   title     String
   year      Int?
-  createdAt DateTime @default(now())
+  createdAt DateTime    @default(now())
+  watchlist Watchlist[]
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  username String   @unique
-  password String
-  name     String?
-  createdAt DateTime @default(now())
-  role      Role     @default(USER)
+  id        Int         @id @default(autoincrement())
+  username  String      @unique
+  password  String
+  name      String?
+  createdAt DateTime    @default(now())
+  role      Role        @default(USER)
+  watchlist Watchlist[]
 }
 
 enum Role {
   USER
   ADMIN
+}
+
+//watchlist table linking users to movies
+model Watchlist {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  movieId   Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  movie     Movie    @relation(fields: [movieId], references: [id])
+
+  @@unique([userId, movieId])
 }

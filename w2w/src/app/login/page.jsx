@@ -1,45 +1,29 @@
 "use client";
-import Navbar from "./navbar";
+import Navbar from "../navbar";
 import React, { useState } from "react";
 import Login from "@/components/Login";
 import SignUp from "@/components/SignUp";
 import { useSession } from "next-auth/react";
 import Button from "@mui/material/Button";
 import { signOut } from "next-auth/react";
-import Link from "next/link";
 
-export default function Home() {
+export default function LoginPage() {
   const { data: session, status } = useSession();
   const [showSignUp, setShowSignUp] = useState(false);
 
-  //if user is already logged in, show their info and options
+  //if user is already logged in, show their info and logout option
   if (status === "authenticated") {
     return (
       <>
         <Navbar />
         <div className="min-h-screen bg-[#232323] text-white flex flex-col justify-center items-center">
           <h1 className="text-3xl font-bold mb-4">Welcome, {session.user.username}!</h1>
-          <p className="text-lg mb-4">Role: {session.user.role}</p>
-          <div className="flex gap-4 mt-4">
-            <Link href="/search">
-              <Button variant="contained">Browse Movies</Button>
-            </Link>
-            <Link href="/watchlist">
-              <Button variant="outlined">My Watchlist</Button>
-            </Link>
-            {session.user.role === "ADMIN" && (
-              <Link href="/adminwatchlist">
-                <Button variant="outlined" color="secondary">
-                  All Watchlists
-                </Button>
-              </Link>
-            )}
-          </div>
+          <p className="text-lg mb-2">Role: {session.user.role}</p>
           <Button
             variant="contained"
             color="error"
             onClick={() => signOut()}
-            sx={{ mt: 4 }}
+            sx={{ mt: 2 }}
           >
             Log Out
           </Button>
@@ -52,7 +36,6 @@ export default function Home() {
     <>
       <Navbar />
       <div className="min-h-screen bg-[#232323] text-white flex flex-col justify-center items-center p-4">
-        <h1 className="text-4xl font-bold mb-8">Welcome to W2W</h1>
         <div className="mb-4">
           <Button
             variant={!showSignUp ? "contained" : "outlined"}
@@ -76,3 +59,4 @@ export default function Home() {
     </>
   );
 }
+
