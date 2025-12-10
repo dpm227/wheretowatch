@@ -90,10 +90,13 @@ POSTGRES_USERNAME=dev
 POSTGRES_PASSWORD=dev
 POSTGRES_SSL=false
 ```
-### User Database stuff
+
+### Possible Extra Imports
 
 1. npm install next-auth
 2. install npm install next-auth bcrypt 
+3. npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
+4. npm install @watchmode/api-client
 
 ### downloading and updating the movies
 

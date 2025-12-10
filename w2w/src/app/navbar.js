@@ -50,6 +50,12 @@ const Navbar = () => {
                 >
                   Admin
                 </Link>
+                <Link
+                  href="/new"
+                  className="text-white hover:bg-white hover:text-black rounded-lg p-2"
+                >
+                  New
+                </Link>
               </div>
             </div>
             <div className="md:hidden flex items-center">
@@ -112,6 +118,12 @@ const Navbar = () => {
               className="text-white block hover:bg-white hover:text-black p-2"
             >
               Admin
+            </Link>
+            <Link
+              href="/new"
+              className="text-white block hover:bg-white hover:text-black p-2"
+            >
+              New
             </Link>
           </div>
         )}
